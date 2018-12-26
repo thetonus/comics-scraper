@@ -1,1 +1,1 @@
-worker: python daemon.py
+worker: python upload.py
