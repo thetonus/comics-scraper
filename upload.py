@@ -41,14 +41,12 @@ with open('configs/sources.json') as f:
 
 def get_scraper(src: str):
     """Summary:
-            This function is a 'switch' so that executes the webscraping functions for each source.
+            This function is a switch so that executes the webscraping functions for each source.
 
     Args:
             src (String): Webscraping Source
-
     Returns:
-            instance: Webscraping Class.
-    """
+            instance: Webscraping Class."""
 
     switcher = {
         'bleedingcool': BleedingCool(),
@@ -63,7 +61,7 @@ def get_scraper(src: str):
     return switcher.get(src, "Invalid Source")
 
 
-def scraper(src: str, reset=False) -> None:
+def scraper(src: str) -> None:
     """Summary
             Scrapes website according to source and uploads scraped data to database.
     Args:
@@ -76,14 +74,7 @@ def scraper(src: str, reset=False) -> None:
 
         # Get website data
         data = site.scrape()
-
-        if reset:
-            logger.info(f'Reset {src} table')
-            schema.drop(src)
-            with schema.create(src) as table:
-                table.string("title")
-                table.string("link")
-
+        
         # Clear out old info
         db.table(src).truncate()
 

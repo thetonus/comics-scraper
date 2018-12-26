@@ -16,7 +16,7 @@ class BaseScraper(ABC):
         with open(f'{ROOT_DIR}/configs/criterion.json') as f:
             data = f.read()
             criterion = json.loads(data)
-        self._criterion = set(map(str.lower, criterion))
+        self._criterion = set(map(str.lower, criterion["criterion"]))
 
         self._headers = {
             'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64; rv:10.0) Gecko/20100101 Firefox/10.0'}
@@ -38,7 +38,7 @@ class BaseScraper(ABC):
                 if key in title.lower():
                     found_titles.append(
                         title.strip()), found_links.append(link.strip())
-
+        
         # Return Unique values
         return list(dict.fromkeys(found_titles)), list(dict.fromkeys(found_links))
 

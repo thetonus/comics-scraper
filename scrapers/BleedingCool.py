@@ -50,7 +50,7 @@ class BleedingCool(BaseScraper):
                     for header in headers:
                         titles.append(header.text)
                         links.append(article['href'])
-                        
+       
         titles = list(filter(None.__ne__, titles))
         links = list(filter(None.__ne__, links))
         return titles, links
@@ -65,7 +65,7 @@ class BleedingCool(BaseScraper):
 
         entries = self._raw_scrape()
         titles, links = self._extract_content(entries)
-
+        
         return self._dict_output(titles, links)
 
 
