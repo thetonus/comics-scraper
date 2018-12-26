@@ -5,9 +5,12 @@ import logging.config
 import os
 import sys
 
+import sentry_sdk
+
 from config import db, schema, sentry
 from scrapers import (BleedingCool, Cbr, Comicbook, Comicsbeat, Ign, Nerdist,
                       Newsarama, Outhousers)
+
 
 def setup_logging(
         default_path='configs/logging.json',
@@ -89,7 +92,7 @@ def scraper(src: str, reset=False) -> None:
         logger.info(f'Uploading of {src} data completed.')
     except Exception as e:
         logger.exception(e)
-        sentry.capture_exception()
+        sentry_sdk.capture_exception()
         pass
 
 if __name__ == '__main__':
@@ -101,4 +104,3 @@ if __name__ == '__main__':
     for src in sites["sources"]: scraper(src)    
         
     logger.info('Webscraper Finished')
-
