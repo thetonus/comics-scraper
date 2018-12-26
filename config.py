@@ -1,12 +1,16 @@
 """ Load .env file variabless """
 import os
 
+import sentry_sdk
+from dotenv import find_dotenv, load_dotenv
 from orator import DatabaseManager, Schema
-from dotenv import load_dotenv, find_dotenv
+
 load_dotenv(find_dotenv())
 
-# Sentry Information
+
+# Sentry Information and API
 SENTRY_CLIENT_KEY = os.getenv("SENTRY_CLIENT_KEY")
+sentry = sentry_sdk.init(SENTRY_CLIENT_KEY)
 
 # Discord Information
 DISCORD = {
@@ -48,7 +52,7 @@ DISCORD = {
 }
 
 # Database information
-DATABASE={
+DATABASE = {
     "default": {
         "driver": "postgres",
         "host": os.getenv("POSTGRES_HOST"),

@@ -5,8 +5,7 @@ import logging.config
 import os
 import sys
 
-from config import db, schema
-# from helpers.sentry import client
+from config import db, schema, sentry
 from scrapers import (BleedingCool, Cbr, Comicbook, Comicsbeat, Ign, Nerdist,
                       Newsarama, Outhousers)
 
@@ -90,7 +89,7 @@ def scraper(src: str, reset=False) -> None:
         logger.info(f'Uploading of {src} data completed.')
     except Exception as e:
         logger.exception(e)
-        # client.capture_exception()
+        sentry.capture_exception()
         pass
 
 if __name__ == '__main__':
