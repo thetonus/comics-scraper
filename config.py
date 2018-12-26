@@ -1,7 +1,7 @@
 """ Load .env file variabless """
 import os
 
-from orator import DatabaseManager, Model
+from orator import DatabaseManager, Schema
 from dotenv import load_dotenv, find_dotenv
 load_dotenv(find_dotenv())
 
@@ -61,3 +61,4 @@ DATABASE={
 
 # Creates Base Orator Model
 db = DatabaseManager(DATABASE)
+schema = Schema(db)

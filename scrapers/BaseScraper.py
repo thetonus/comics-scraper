@@ -1,17 +1,23 @@
 """ Archetype for Webscrapers """
+import json
+import os
 from abc import ABC, abstractmethod
 
 import validators
 
-from .criterion import criterion
+ROOT_DIR = os.getcwd()  # This is your Project Root
 
 
 class BaseScraper(ABC):
     """ Base Sraper """
 
     def __init__(self):
+        # Get search Criterion
+        with open(f'{ROOT_DIR}/configs/criterion.json') as f:
+            data = f.read()
+            criterion = json.loads(data)
         self._criterion = set(map(str.lower, criterion))
-        # self._criterion = criterion
+
         self._headers = {
             'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64; rv:10.0) Gecko/20100101 Firefox/10.0'}
 
@@ -30,7 +36,8 @@ class BaseScraper(ABC):
         for key in self._criterion:
             for title, link in zip(titles, links):
                 if key in title.lower():
-                    found_titles.append(title.strip()), found_links.append(link.strip())
+                    found_titles.append(
+                        title.strip()), found_links.append(link.strip())
 
         # Return Unique values
         return list(dict.fromkeys(found_titles)), list(dict.fromkeys(found_links))
@@ -48,15 +55,25 @@ class BaseScraper(ABC):
             data (Dict): dictionary of titles and links
         """
 
-        data = dict()
+        data = list()
+        filtered_titles, filtered_links = self._filter_content(titles, links)
+
         if template:
+
             # Return content with apping template to links
-            links = list(map(lambda x: template + x, links))
-            data['title'], data['link'] = self._filter_content(titles, links)
+            filtered_links = list(map(lambda x: template + x, filtered_links))
+            for i, (t, l) in enumerate(zip(filtered_titles, filtered_links)):
+                data.append(dict())
+                data[i]["title"] = str(t)
+                data[i]["link"] = str(l)
             return data
 
         # Return content without adding template to links
-        data['title'], data['link'] = self._filter_content(titles, links)
+        for i, (t, l) in enumerate(zip(filtered_titles, filtered_links)):
+            data.append(dict())
+            data[i]["title"] = str(t)
+            data[i]["link"] = str(l)
+
         return data
 
     @abstractmethod

@@ -1,14 +1,9 @@
 # Heroku Daemon
 
-This is my daemon for [my heroku application](http://tonus.herokuapp.com). Currently it scrapes comic news websites and uploads the scraped contents to my Postgres DB every hour. The search criterion I used are in search_criterion.py. The daemon also searches the feeds of [thebatmanuniverse.com](http://thebatmanuniverse.com) for new posts. It these posts are then sent to a Discord Server.
+This project scrapes comic news websites and uploads the scraped contents to my Postgres DB every hour.
 
 ## Webscraping Sources
 My sources are: bleedingcool.com, cbr.com, comicbook.com, comicsbeat.com, ign.com, nerdist.com, newsarama.com, and theouthousers.com.
-
-## TBU Discord Bot
-TBU uses Discord to talk about comics with their audience. I realized that the editor in chief spent a long time manually cutting and pasting the articles of the site into specific Discord channels.
-Since TBU is a Wordpress site, I wondered if there would be a way to took at the rss feeds and add new stories to the Discord server. The "discord_bot" allows the autoposting of new TBU content when
-it is published on the site.
 
 ## Getting Started
 
