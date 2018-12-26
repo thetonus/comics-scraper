@@ -2,54 +2,16 @@
 import os
 
 import sentry_sdk
-from dotenv import find_dotenv, load_dotenv
+from dotenv import load_dotenv
 from orator import DatabaseManager, Schema
 
-load_dotenv(find_dotenv())
-
+# Load Environment
+dotenv_path = os.path.join(os.path.dirname(__file__), '.env')
+load_dotenv(dotenv_path)
 
 # Sentry Information and API
 SENTRY_CLIENT_KEY = os.getenv("SENTRY_CLIENT_KEY")
 sentry = sentry_sdk.init(SENTRY_CLIENT_KEY)
-
-# Discord Information
-DISCORD = {
-    "NEWS_COMICS": {
-        "WEBHOOK": os.getenv("NEWS_COMICS_WEBHOOK"),
-        "FEED": "http://thebatmanuniverse.net/category/comic/comic-news/feed",
-        "TABLE": "comicNews",
-    },
-    "NEWS_MOVIE": {
-        "WEBHOOK": os.getenv("NEWS_MOVIE_WEBHOOK"),
-        "FEED": "http://thebatmanuniverse.net/category/movie/movie-news/feed",
-        "TABLE": "movieNews",
-    },
-    "NEWS_TV": {
-        "WEBHOOK": os.getenv("NEWS_TV_WEBHOOK"),
-        "FEED": "http://thebatmanuniverse.net/category/tv/tv-news/feed",
-        "TABLE": "tvNews",
-    },
-    "NEWS_VIDEOGAMES": {
-        "WEBHOOK": os.getenv("NEWS_VIDEOGAMES_WEBHOOK"),
-        "FEED": "http://thebatmanuniverse.net/category/videogame/videogame-news/feed",
-        "TABLE": "gamesNews",
-    },
-    "NEWS_MERCH": {
-        "WEBHOOK": os.getenv("NEWS_MERCH_WEBHOOK"),
-        "FEED": "http://thebatmanuniverse.net/category/merchandise/merchandise-news/feed",
-        "TABLE": "merchNews",
-    },
-    "NEWS_GENERAL": {
-        "WEBHOOK": os.getenv("NEWS_GENERAL_WEBHOOK"),
-        "FEED": "http://thebatmanuniverse.net/category/general/general-news/feed",
-        "TABLE": "generalNews",
-    },
-    "PODCAST_COMICS": {
-        "WEBHOOK": os.getenv("PODCAST_COMICS_WEBHOOK"),
-        "FEED": "http://thebatmanuniverse.net/category/podcast/tbucp/feed",
-        "TABLE": "comicsPodcast",
-    },
-}
 
 # Database information
 DATABASE = {
