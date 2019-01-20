@@ -3,7 +3,7 @@
 import requests
 from bs4 import BeautifulSoup
 from typing import List, Tuple, Dict
-from.BaseScraper import BaseScraper
+from .BaseScraper import BaseScraper
 
 class Comicsbeat(BaseScraper):
 
