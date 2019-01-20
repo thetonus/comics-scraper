@@ -7,3 +7,4 @@ from .Ign import Ign
 from .Nerdist import Nerdist
 from .Newsarama import Newsarama
 from .Outhousers import Outhousers
+from .ScraperFactory import ScraperFactory
